@@ -15,9 +15,9 @@ with sync_playwright() as p:
     page_main.goto(url)
     for element in page_main.query_selector_all('.thumbnail'):
         # Data from main page.
-        img_src = element.query_selector('img').get_attribute('src')
+        img_src = domain + element.query_selector('img').get_attribute('src')
         caption = element.query_selector('.caption')
-        item_link = caption.query_selector('a').get_attribute('href')
+        item_link = domain + caption.query_selector('a').get_attribute('href')
         title = caption.query_selector('a').get_attribute('title')
         
         if 'Lenovo' not in title:
@@ -31,7 +31,7 @@ with sync_playwright() as p:
         hdd_availability = []
 
         # Data from item's page.
-        page_item.goto(domain + item_link)
+        page_item.goto(item_link)
         info_element = page_item.query_selector('.col-lg-10')
         caption_inner = info_element.query_selector('.caption')
         price = caption_inner.query_selector('.price')
